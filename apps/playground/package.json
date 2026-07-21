@@ -1,0 +1,24 @@
+{
+  "name": "@morphdb/playground-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive In-Browser Query AST Playground for MorphDB",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@morphdb/schema": "workspace:*",
+    "@morphdb/ast": "workspace:*",
+    "@morphdb/query-builder": "workspace:*",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "typescript": "^5.4.0",
+    "vite": "^5.2.0"
+  }
+}

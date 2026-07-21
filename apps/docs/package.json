@@ -1,0 +1,24 @@
+{
+  "name": "@morphdb/docs-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MorphDB Documentation Website powered by Next.js and Fumadocs",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "fumadocs-ui": "^12.0.0",
+    "fumadocs-core": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.3.0",
+    "typescript": "^5.4.0"
+  }
+}
