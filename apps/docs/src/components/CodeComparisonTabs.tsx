@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Check, Copy, Database, Sparkles } from 'lucide-react';
+import { Code2, Database, Sparkles } from 'lucide-react';
+import { CodeBlock } from './CodeBlock';
 
 const SNIPPETS = {
   schema: `import { defineSchema, field } from '@morphdb/schema';
@@ -53,85 +54,75 @@ db.users.aggregate([
 
 export function CodeComparisonTabs() {
   const [activeTab, setActiveTab] = useState<'schema' | 'postgres' | 'mongodb'>('schema');
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(SNIPPETS[activeTab]);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.2 }}
-      className="w-full rounded-2xl border border-card-border bg-card/90 shadow-2xl overflow-hidden glass-card-sexy"
+      className="w-full space-y-3"
     >
-      {/* Tab Navigation Header */}
-      <div className="flex flex-wrap items-center justify-between border-b border-card-border bg-background/70 px-4 py-3">
-        <div className="flex items-center space-x-2">
-          <button
-            onClick={() => setActiveTab('schema')}
-            className={`relative flex items-center space-x-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
-              activeTab === 'schema'
-                ? 'bg-cyber-emerald/20 text-cyber-emerald border border-cyber-emerald/40'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Code2 className="h-3.5 w-3.5" />
-            <span>1. Universal Schema IR</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('postgres')}
-            className={`relative flex items-center space-x-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
-              activeTab === 'postgres'
-                ? 'bg-blue-500/20 text-blue-400 border border-blue-500/40'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Database className="h-3.5 w-3.5" />
-            <span>2. PostgreSQL SQL Compiler</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('mongodb')}
-            className={`relative flex items-center space-x-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
-              activeTab === 'mongodb'
-                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>3. MongoDB Aggregation Lowering</span>
-          </button>
-        </div>
+      {/* Tab Selector Buttons */}
+      <div className="flex flex-wrap items-center space-x-2 bg-card/80 p-2 rounded-xl border border-card-border w-fit glass-card-sexy">
+        <button
+          onClick={() => setActiveTab('schema')}
+          className={`flex items-center space-x-2 rounded-lg px-4 py-2 text-xs font-bold transition-all ${
+            activeTab === 'schema'
+              ? 'bg-gradient-to-r from-cyber-emerald to-cyber-cyan text-background shadow-lg shadow-cyber-emerald/20'
+              : 'text-slate-400 hover:text-white'
+          }`}
+        >
+          <Code2 className="h-4 w-4" />
+          <span>1. Universal Schema IR</span>
+        </button>
 
         <button
-          onClick={handleCopy}
-          className="flex items-center space-x-1.5 text-xs text-slate-400 hover:text-white transition-colors bg-background/50 px-2.5 py-1 rounded-lg border border-card-border"
+          onClick={() => setActiveTab('postgres')}
+          className={`flex items-center space-x-2 rounded-lg px-4 py-2 text-xs font-bold transition-all ${
+            activeTab === 'postgres'
+              ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg shadow-blue-500/20'
+              : 'text-slate-400 hover:text-white'
+          }`}
         >
-          {copied ? <Check className="h-3.5 w-3.5 text-cyber-emerald" /> : <Copy className="h-3.5 w-3.5" />}
-          <span>{copied ? 'Copied' : 'Copy'}</span>
+          <Database className="h-4 w-4" />
+          <span>2. PostgreSQL SQL Compiler</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('mongodb')}
+          className={`flex items-center space-x-2 rounded-lg px-4 py-2 text-xs font-bold transition-all ${
+            activeTab === 'mongodb'
+              ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/20'
+              : 'text-slate-400 hover:text-white'
+          }`}
+        >
+          <Sparkles className="h-4 w-4" />
+          <span>3. MongoDB Aggregation Lowering</span>
         </button>
       </div>
 
-      {/* Animated Code Display Container */}
-      <div className="p-4 bg-[#05070d] overflow-x-auto min-h-[260px]">
-        <AnimatePresence mode="wait">
-          <motion.pre
-            key={activeTab}
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -10 }}
-            transition={{ duration: 0.25 }}
-            className="font-mono text-xs leading-relaxed text-emerald-400"
-          >
-            <code>{SNIPPETS[activeTab]}</code>
-          </motion.pre>
-        </AnimatePresence>
-      </div>
+      {/* CodeBlock Container */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.25 }}
+        >
+          <CodeBlock
+            code={SNIPPETS[activeTab]}
+            language={activeTab === 'postgres' ? 'sql' : 'typescript'}
+            title={
+              activeTab === 'schema'
+                ? 'schema.ts — MorphDB Schema IR'
+                : activeTab === 'postgres'
+                ? 'query.sql — Lowered Parameterized SQL'
+                : 'pipeline.js — Lowered Mongo Aggregation Pipeline'
+            }
+          />
+        </motion.div>
+      </AnimatePresence>
     </motion.div>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TableOfContents, TOCHeading } from '../../../components/TableOfContents';
+import { CodeBlock } from '../../../components/CodeBlock';
 import { BookOpen } from 'lucide-react';
 
 interface Props {
@@ -26,14 +27,14 @@ export default function DynamicDocsPage({ params }: Props) {
 
         {/* Header Title & Summary */}
         <div className="space-y-3 border-b border-card-border pb-6">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">{content.title}</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-outfit">{content.title}</h1>
           <p className="text-sm text-slate-400 leading-relaxed">{content.summary}</p>
         </div>
 
         {/* Render Sections */}
         {content.sections.map((sec) => (
           <section key={sec.id} id={sec.id} className="space-y-4 scroll-mt-24">
-            <h2 className="text-xl font-bold text-white flex items-center space-x-2">
+            <h2 className="text-xl font-bold text-white flex items-center space-x-2 font-outfit">
               <span className="text-cyber-emerald">#</span>
               <span>{sec.title}</span>
             </h2>
@@ -42,9 +43,7 @@ export default function DynamicDocsPage({ params }: Props) {
             </div>
 
             {sec.code && (
-              <div className="rounded-xl border border-card-border bg-[#070a11] p-4 font-mono text-xs text-emerald-400 overflow-x-auto">
-                <pre><code>{sec.code}</code></pre>
-              </div>
+              <CodeBlock code={sec.code} language={sec.language ?? 'typescript'} title={sec.title} />
             )}
           </section>
         ))}
@@ -60,6 +59,7 @@ interface Section {
   title: string;
   body: React.ReactNode;
   code?: string;
+  language?: string;
 }
 
 interface DocContent {
@@ -96,6 +96,7 @@ function getDocContent(slug: string): DocContent {
             id: 'type-inference',
             title: 'Static Type Inference',
             body: <p>Extract TypeScript compile-time shapes automatically using <code>InferEntity&lt;typeof Schema&gt;</code> without running any code generation binaries.</p>,
+            code: `import { InferEntity } from '@morphdb/schema';\n\nexport type Product = InferEntity<typeof ProductSchema>;`,
           },
         ],
       };
@@ -189,6 +190,7 @@ function getDocContent(slug: string): DocContent {
             title: 'Installation',
             body: <p>Install the core orchestrator and target database adapters via pnpm or npm:</p>,
             code: `pnpm add @morphdb/core @morphdb/schema @morphdb/query-builder @morphdb/adapter-postgres`,
+            language: 'bash',
           },
           {
             id: 'quick-example',
