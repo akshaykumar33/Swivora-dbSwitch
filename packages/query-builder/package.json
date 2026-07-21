@@ -1,6 +1,6 @@
 {
   "name": "@morphdb/query-builder",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "MorphDB Type-Safe Query Builder and AST Optimization Passes",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

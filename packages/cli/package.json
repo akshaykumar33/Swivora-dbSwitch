@@ -1,6 +1,6 @@
 {
   "name": "@morphdb/cli",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Command Line Interface for MorphDB Migrations and Code Generation",
   "main": "./dist/index.js",
   "bin": {

@@ -1,6 +1,6 @@
 {
   "name": "@morphdb/core",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "MorphDB Core Orchestrator, AsyncLocalStorage Context Scoping, and Unit of Work",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
