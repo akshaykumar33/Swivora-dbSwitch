@@ -13,12 +13,24 @@
     "next": "^14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
-    "fumadocs-ui": "^12.0.0",
-    "fumadocs-core": "^12.0.0"
+    "lucide-react": "^0.368.0",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.2.2",
+    "@morphdb/schema": "workspace:*",
+    "@morphdb/ast": "workspace:*",
+    "@morphdb/query-builder": "workspace:*",
+    "@morphdb/core": "workspace:*",
+    "@morphdb/adapter-sdk": "workspace:*",
+    "@morphdb/adapter-postgres": "workspace:*",
+    "@morphdb/adapter-mongodb": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/react": "^18.3.0",
-    "typescript": "^5.4.0"
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.4.0",
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.38",
+    "autoprefixer": "^10.4.19"
   }
 }
