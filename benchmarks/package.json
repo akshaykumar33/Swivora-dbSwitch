@@ -1,0 +1,19 @@
+{
+  "name": "@morphdb/benchmarks",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MorphDB Query AST Compilation and Execution Latency Benchmarks",
+  "scripts": {
+    "bench": "vitest bench"
+  },
+  "dependencies": {
+    "@morphdb/schema": "workspace:*",
+    "@morphdb/ast": "workspace:*",
+    "@morphdb/query-builder": "workspace:*",
+    "@morphdb/adapter-postgres": "workspace:*"
+  },
+  "devDependencies": {
+    "vitest": "^1.5.0",
+    "typescript": "^5.4.0"
+  }
+}
