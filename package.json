@@ -1,13 +1,23 @@
 {
-  "name": "Swivora-dbSwitch",
+  "name": "morphdb-monorepo",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "description": "MorphDB - Universal Data Abstraction Layer (Write Once. Connect Everywhere.)",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "type-check": "turbo run type-check",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean && rimraf node_modules dist"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0",
+    "tsx": "^4.7.0",
+    "tsup": "^8.0.0",
+    "vitest": "^1.5.0",
+    "rimraf": "^5.0.0"
+  },
   "packageManager": "pnpm@10.33.0"
 }
