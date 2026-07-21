@@ -58,20 +58,20 @@ export function CodeBlock({
       </div>
 
       {/* Code Content Container */}
-      <div className="p-4 overflow-x-auto text-xs font-mono leading-relaxed bg-[#05070d]">
-        <div className="flex">
+      <div className="px-4 py-3 overflow-x-auto text-xs font-mono leading-relaxed bg-[#05070d] relative">
+        <div className="flex min-w-full w-max">
           {showLineNumbers && (
-            <div className="select-none text-slate-600 text-right pr-4 border-r border-card-border/60 space-y-1">
+            <div className="sticky left-0 bg-[#05070d] z-10 select-none text-slate-600 text-right pr-4 border-r border-card-border/60 space-y-1 shrink-0">
               {lines.map((_, i) => (
                 <div key={`line-num-${i}`}>{i + 1}</div>
               ))}
             </div>
           )}
 
-          <div className={`${showLineNumbers ? 'pl-4' : ''} flex-1 overflow-x-auto space-y-1`}>
+          <div className={`${showLineNumbers ? 'pl-4' : ''} flex-1 space-y-1`}>
             {lines.map((line, idx) => (
-              <div key={`line-code-${idx}`} className="whitespace-pre">
-                {highlightLine(line)}
+              <div key={`line-code-${idx}`} className="whitespace-pre min-h-[1.25rem]">
+                {line.length === 0 ? '\u00A0' : highlightLine(line)}
               </div>
             ))}
           </div>
