@@ -1,0 +1,32 @@
+{
+  "name": "@morphdb/core",
+  "version": "1.0.0",
+  "description": "MorphDB Core Orchestrator, AsyncLocalStorage Context Scoping, and Unit of Work",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest run",
+    "example": "tsx examples/index.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@morphdb/ast": "workspace:*",
+    "@morphdb/schema": "workspace:*",
+    "@morphdb/adapter-sdk": "workspace:*",
+    "@morphdb/query-builder": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.5.0"
+  }
+}
