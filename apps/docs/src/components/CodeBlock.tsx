@@ -63,14 +63,14 @@ export function CodeBlock({
           {showLineNumbers && (
             <div className="select-none text-slate-600 text-right pr-4 border-r border-card-border/60 space-y-1">
               {lines.map((_, i) => (
-                <div key={i}>{i + 1}</div>
+                <div key={`line-num-${i}`}>{i + 1}</div>
               ))}
             </div>
           )}
 
           <div className={`${showLineNumbers ? 'pl-4' : ''} flex-1 overflow-x-auto space-y-1`}>
             {lines.map((line, idx) => (
-              <div key={idx} className="whitespace-pre">
+              <div key={`line-code-${idx}`} className="whitespace-pre">
                 {highlightLine(line)}
               </div>
             ))}
@@ -100,7 +100,7 @@ function highlightLine(line: string): React.ReactNode {
     for (const match of stringMatches) {
       const idx = match.index!;
       if (idx > lastIdx) {
-        parts.push(highlightCodeSegment(line.substring(lastIdx, idx), idx));
+        parts.push(<React.Fragment key={`seg-${lastIdx}`}>{highlightCodeSegment(line.substring(lastIdx, idx), idx)}</React.Fragment>);
       }
       parts.push(
         <span key={`str-${idx}`} className="text-emerald-300 font-semibold">
@@ -110,7 +110,7 @@ function highlightLine(line: string): React.ReactNode {
       lastIdx = idx + match[0].length;
     }
     if (lastIdx < line.length) {
-      parts.push(highlightCodeSegment(line.substring(lastIdx), lastIdx));
+      parts.push(<React.Fragment key={`seg-${lastIdx}`}>{highlightCodeSegment(line.substring(lastIdx), lastIdx)}</React.Fragment>);
     }
     return <>{parts}</>;
   }
@@ -123,22 +123,23 @@ function highlightCodeSegment(segment: string, keyOffset: number): React.ReactNo
   return (
     <>
       {tokens.map((tok, i) => {
+        const k = `tok-${keyOffset}-${i}`;
         if (/^(import|export|from|const|let|var|type|interface|class|extends|public|readonly|async|await|SELECT|FROM|WHERE|JOIN|INNER|LEFT|ORDER|BY|LIMIT|OFFSET|AND|OR|DESC|ASC)$/.test(tok)) {
-          return <span key={i + keyOffset} className="text-purple-400 font-bold">{tok}</span>;
+          return <span key={k} className="text-purple-400 font-bold">{tok}</span>;
         }
         if (/^(SchemaIR|InferEntity|QueryBuilder|SelectQueryNode|FilterExpressionNode|DatabaseAdapter|MorphDBClient|UserSchema|ProductSchema|User|Product)$/.test(tok)) {
-          return <span key={i + keyOffset} className="text-amber-300 font-semibold">{tok}</span>;
+          return <span key={k} className="text-amber-300 font-semibold">{tok}</span>;
         }
         if (/^(defineSchema|field|uuid|primaryKey|string|unique|default|defaultToNow|int|dateTime|boolean|query|where|orderBy|limit|execute|accept|compile)$/.test(tok)) {
-          return <span key={i + keyOffset} className="text-cyan-400 font-medium">{tok}</span>;
+          return <span key={k} className="text-cyan-400 font-medium">{tok}</span>;
         }
         if (/^\d+$/.test(tok) || /^(true|false|null|undefined)$/.test(tok)) {
-          return <span key={i + keyOffset} className="text-orange-400">{tok}</span>;
+          return <span key={k} className="text-orange-400">{tok}</span>;
         }
         if (/^[\$\:]/.test(tok)) {
-          return <span key={i + keyOffset} className="text-blue-400">{tok}</span>;
+          return <span key={k} className="text-blue-400">{tok}</span>;
         }
-        return tok;
+        return <React.Fragment key={k}>{tok}</React.Fragment>;
       })}
     </>
   );

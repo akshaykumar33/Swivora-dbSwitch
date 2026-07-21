@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@morphdb/docs-app", "@morphdb/playground-app", "@morphdb/benchmarks"]
+  "ignore": ["@morphdb/docs-app", "@morphdb/playground-app"]
 }
