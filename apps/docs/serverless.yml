@@ -1,0 +1,16 @@
+service: morphdb-docs-app
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  memorySize: 1024
+  timeout: 10
+
+plugins:
+  - serverless-nextjs-plugin
+
+custom:
+  serverless-nextjs:
+    assetsBucketName: morphdb-docs-assets
+    domain: docs.swivoradb.dev

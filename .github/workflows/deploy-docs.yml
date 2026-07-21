@@ -1,0 +1,46 @@
+name: Deploy MorphDB Docs Application
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/docs/**'
+      - 'packages/**'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/deploy-docs.yml'
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy Documentation Site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.33.0
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install Monorepo Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Next.js Documentation App
+        run: pnpm --filter @morphdb/docs-app build
+
+      # Deployment Step: Vercel Deployment Action
+      - name: Deploy to Vercel (Production)
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod --cwd=apps/docs'
+          working-directory: apps/docs
