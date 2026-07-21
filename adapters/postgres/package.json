@@ -1,0 +1,36 @@
+{
+  "name": "@morphdb/adapter-postgres",
+  "version": "1.0.0",
+  "description": "Official PostgreSQL Adapter for MorphDB",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest run",
+    "bench": "vitest bench benchmarks/",
+    "example": "tsx examples/index.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@morphdb/ast": "workspace:*",
+    "@morphdb/adapter-sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.5.0",
+    "pg": "^8.11.0",
+    "@types/pg": "^8.11.0"
+  },
+  "peerDependencies": {
+    "pg": "^8.11.0"
+  }
+}
