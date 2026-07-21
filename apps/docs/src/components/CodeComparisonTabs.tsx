@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Code2, Check, Copy, Database, Sparkles } from 'lucide-react';
 
 const SNIPPETS = {
@@ -61,13 +62,18 @@ export function CodeComparisonTabs() {
   };
 
   return (
-    <div className="w-full rounded-2xl border border-card-border bg-card/90 shadow-2xl overflow-hidden glass-card">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+      className="w-full rounded-2xl border border-card-border bg-card/90 shadow-2xl overflow-hidden glass-card-sexy"
+    >
       {/* Tab Navigation Header */}
-      <div className="flex flex-wrap items-center justify-between border-b border-card-border bg-background/60 px-4 py-3">
+      <div className="flex flex-wrap items-center justify-between border-b border-card-border bg-background/70 px-4 py-3">
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setActiveTab('schema')}
-            className={`flex items-center space-x-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
+            className={`relative flex items-center space-x-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
               activeTab === 'schema'
                 ? 'bg-cyber-emerald/20 text-cyber-emerald border border-cyber-emerald/40'
                 : 'text-slate-400 hover:text-white'
@@ -79,7 +85,7 @@ export function CodeComparisonTabs() {
 
           <button
             onClick={() => setActiveTab('postgres')}
-            className={`flex items-center space-x-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
+            className={`relative flex items-center space-x-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
               activeTab === 'postgres'
                 ? 'bg-blue-500/20 text-blue-400 border border-blue-500/40'
                 : 'text-slate-400 hover:text-white'
@@ -91,7 +97,7 @@ export function CodeComparisonTabs() {
 
           <button
             onClick={() => setActiveTab('mongodb')}
-            className={`flex items-center space-x-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
+            className={`relative flex items-center space-x-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
               activeTab === 'mongodb'
                 ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
                 : 'text-slate-400 hover:text-white'
@@ -104,19 +110,28 @@ export function CodeComparisonTabs() {
 
         <button
           onClick={handleCopy}
-          className="flex items-center space-x-1.5 text-xs text-slate-400 hover:text-white transition-colors"
+          className="flex items-center space-x-1.5 text-xs text-slate-400 hover:text-white transition-colors bg-background/50 px-2.5 py-1 rounded-lg border border-card-border"
         >
           {copied ? <Check className="h-3.5 w-3.5 text-cyber-emerald" /> : <Copy className="h-3.5 w-3.5" />}
           <span>{copied ? 'Copied' : 'Copy'}</span>
         </button>
       </div>
 
-      {/* Code Display Container */}
-      <div className="p-4 bg-[#070a11] overflow-x-auto">
-        <pre className="font-mono text-xs leading-relaxed text-emerald-400">
-          <code>{SNIPPETS[activeTab]}</code>
-        </pre>
+      {/* Animated Code Display Container */}
+      <div className="p-4 bg-[#05070d] overflow-x-auto min-h-[260px]">
+        <AnimatePresence mode="wait">
+          <motion.pre
+            key={activeTab}
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            transition={{ duration: 0.25 }}
+            className="font-mono text-xs leading-relaxed text-emerald-400"
+          >
+            <code>{SNIPPETS[activeTab]}</code>
+          </motion.pre>
+        </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 }

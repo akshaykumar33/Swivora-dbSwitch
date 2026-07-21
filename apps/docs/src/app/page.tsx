@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import {
   Database,
   ArrowRight,
@@ -23,24 +26,44 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8">
             {/* Top Badge */}
-            <div className="inline-flex items-center space-x-2 rounded-full bg-gradient-to-r from-cyber-emerald/15 via-cyber-cyan/15 to-cyber-violet/15 px-4 py-1.5 text-xs font-semibold text-cyber-emerald border border-cyber-emerald/30 shadow-inner">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center space-x-2 rounded-full bg-gradient-to-r from-cyber-emerald/15 via-cyber-cyan/15 to-cyber-violet/15 px-4 py-1.5 text-xs font-semibold text-cyber-emerald border border-cyber-emerald/30 shadow-inner"
+            >
               <Sparkles className="h-4 w-4 text-cyber-emerald animate-spin" />
               <span>Universal Data Abstraction Layer (UDAL) for TypeScript</span>
-            </div>
+            </motion.div>
 
             {/* Headline */}
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[1.1] font-outfit">
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[1.1] font-outfit"
+            >
               Write Once. <br />
               <span className="text-gradient-emerald-cyan">Connect Everywhere.</span>
-            </h1>
+            </motion.h1>
 
             {/* Sub-headline */}
-            <p className="mx-auto max-w-3xl text-base sm:text-xl text-slate-300 font-normal leading-relaxed">
-              MorphDB translates schemas, queries, and transactions across <strong className="text-white">PostgreSQL</strong>, <strong className="text-white">MongoDB</strong>, <strong className="text-white">MySQL</strong>, and <strong className="text-white">SQLite</strong> while keeping your application domain logic 100% decoupled from physical database drivers.
-            </p>
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mx-auto max-w-3xl text-base sm:text-xl text-slate-300 font-normal leading-relaxed"
+            >
+              MorphDB translates schemas, queries, and transactions across <strong className="text-white">PostgreSQL</strong>, <strong className="text-white">MongoDB</strong>, <strong className="text-white">MySQL</strong>, and <strong className="text-white">SQLite</strong> while keeping application logic 100% decoupled from physical database drivers.
+            </motion.p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap justify-center gap-4 pt-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex flex-wrap justify-center gap-4 pt-4"
+            >
               <Link
                 href="/docs/getting-started"
                 className="flex items-center space-x-2.5 rounded-xl bg-gradient-to-r from-cyber-emerald via-cyber-cyan to-blue-500 px-7 py-4 text-sm font-bold text-background shadow-xl shadow-cyber-emerald/25 hover:scale-105 transition-all"
@@ -56,7 +79,7 @@ export default function LandingPage() {
                 <Database className="h-4 w-4 text-cyber-emerald" />
                 <span>Explore Universal Schema IR</span>
               </Link>
-            </div>
+            </motion.div>
           </div>
 
           {/* Interactive Code Comparison Section */}
@@ -139,10 +162,14 @@ export default function LandingPage() {
 
 function FeatureCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
   return (
-    <div className="rounded-2xl border border-card-border bg-card/70 p-7 glass-card-sexy space-y-4">
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.2 }}
+      className="rounded-2xl border border-card-border bg-card/70 p-7 glass-card-sexy space-y-4"
+    >
       <div className="p-3 rounded-xl bg-background/90 w-fit border border-card-border shadow-inner">{icon}</div>
       <h3 className="text-lg font-bold text-white font-outfit">{title}</h3>
       <p className="text-xs text-slate-400 leading-relaxed">{description}</p>
-    </div>
+    </motion.div>
   );
 }
