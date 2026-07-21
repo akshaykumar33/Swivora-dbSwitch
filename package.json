@@ -8,7 +8,9 @@
     "test": "turbo run test",
     "type-check": "turbo run type-check",
     "lint": "turbo run lint",
-    "clean": "turbo run clean && rimraf node_modules dist",
+    "clean": "node scripts/clean.mjs",
+    "bootstrap": "node scripts/clean.mjs && pnpm install && turbo run build",
+    "fresh": "node scripts/clean.mjs && pnpm install",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build && changeset publish"
